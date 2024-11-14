@@ -40,10 +40,6 @@
             button2 = new Button();
             button1 = new Button();
             dt1 = new DataGridView();
-            id = new DataGridViewTextBoxColumn();
-            insumos = new DataGridViewTextBoxColumn();
-            ordenDeTrabajo = new DataGridViewTextBoxColumn();
-            cantidad = new DataGridViewTextBoxColumn();
             tv1 = new TextBox();
             label3 = new Label();
             label2 = new Label();
@@ -51,6 +47,10 @@
             label1 = new Label();
             detalleOrdenTrabajoBindingSource1 = new BindingSource(components);
             label5 = new Label();
+            id = new DataGridViewTextBoxColumn();
+            ordenDeTrabajo = new DataGridViewTextBoxColumn();
+            Insumo = new DataGridViewTextBoxColumn();
+            cantidad = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)detalleOrdenTrabajoBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dt1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)detalleOrdenTrabajoBindingSource1).BeginInit();
@@ -159,7 +159,7 @@
             // 
             dt1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dt1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dt1.Columns.AddRange(new DataGridViewColumn[] { id, insumos, ordenDeTrabajo, cantidad });
+            dt1.Columns.AddRange(new DataGridViewColumn[] { id, ordenDeTrabajo, Insumo, cantidad });
             dt1.Location = new Point(313, 11);
             dt1.Margin = new Padding(2);
             dt1.Name = "dt1";
@@ -167,26 +167,7 @@
             dt1.RowTemplate.Height = 33;
             dt1.Size = new Size(624, 328);
             dt1.TabIndex = 32;
-            // 
-            // id
-            // 
-            id.HeaderText = "ID";
-            id.Name = "id";
-            // 
-            // insumos
-            // 
-            insumos.HeaderText = "Insumos";
-            insumos.Name = "insumos";
-            // 
-            // ordenDeTrabajo
-            // 
-            ordenDeTrabajo.HeaderText = "Orden de Trabajo";
-            ordenDeTrabajo.Name = "ordenDeTrabajo";
-            // 
-            // cantidad
-            // 
-            cantidad.HeaderText = "Cantidad";
-            cantidad.Name = "cantidad";
+            dt1.CellContentClick += dt1_CellContentClick;
             // 
             // tv1
             // 
@@ -249,6 +230,26 @@
             label5.TabIndex = 42;
             label5.Text = "Registrar Detalle Orden Trabajo";
             // 
+            // id
+            // 
+            id.HeaderText = "ID";
+            id.Name = "id";
+            // 
+            // ordenDeTrabajo
+            // 
+            ordenDeTrabajo.HeaderText = "Orden de Trabajo";
+            ordenDeTrabajo.Name = "ordenDeTrabajo";
+            // 
+            // Insumo
+            // 
+            Insumo.HeaderText = "Insumo";
+            Insumo.Name = "Insumo";
+            // 
+            // cantidad
+            // 
+            cantidad.HeaderText = "Cantidad";
+            cantidad.Name = "cantidad";
+            // 
             // FormDetalleOrdenTrabajo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -297,12 +298,12 @@
         private Label label2;
         private ComboBox cb2;
         private Label label1;
-        private DataGridViewTextBoxColumn id;
-        private DataGridViewTextBoxColumn insumos;
-        private DataGridViewTextBoxColumn ordenDeTrabajo;
-        private DataGridViewTextBoxColumn cantidad;
         private BindingSource detalleOrdenTrabajoBindingSource;
         private BindingSource detalleOrdenTrabajoBindingSource1;
         private Label label5;
+        private DataGridViewTextBoxColumn id;
+        private DataGridViewTextBoxColumn ordenDeTrabajo;
+        private DataGridViewTextBoxColumn Insumo;
+        private DataGridViewTextBoxColumn cantidad;
     }
 }

@@ -1,13 +1,10 @@
 ﻿using Datos;
 using Modelos;
-using System;
-using System.Collections.Generic;
 
 namespace Negocio
 {
     public class BDetalleOrdenTrabajo
     {
-
         public static List<DetalleOrdenTrabajo> Get()
         {
             try
@@ -19,7 +16,6 @@ namespace Negocio
                 throw;
             }
         }
-
 
         public static DetalleOrdenTrabajo GetById(int id)
         {
@@ -33,8 +29,7 @@ namespace Negocio
             }
         }
 
-
-        public static void Insert(int ordenDeTrabajo, int insumo, decimal cantidad)
+        public static void Insert(OrdenTrabajo ordenDeTrabajo, Insumo insumo, decimal cantidad)
         {
             try
             {
@@ -46,8 +41,7 @@ namespace Negocio
             }
         }
 
-
-        public static void Update(int id, int ordenDeTrabajo, int insumo, decimal cantidad)
+        public static void Update(int id, OrdenTrabajo ordenDeTrabajo, Insumo insumo, decimal cantidad)
         {
             try
             {
@@ -58,7 +52,6 @@ namespace Negocio
                 throw;
             }
         }
-
 
         public static void Delete(int id)
         {
