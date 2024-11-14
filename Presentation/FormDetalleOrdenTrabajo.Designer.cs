@@ -58,10 +58,10 @@
             // 
             // button6
             // 
-            button6.Location = new Point(150, 252);
+            button6.Location = new Point(176, 269);
             button6.Margin = new Padding(2);
             button6.Name = "button6";
-            button6.Size = new Size(117, 20);
+            button6.Size = new Size(130, 42);
             button6.TabIndex = 41;
             button6.Text = "Consultar TODOS";
             button6.UseVisualStyleBackColor = true;
@@ -69,10 +69,10 @@
             // 
             // button5
             // 
-            button5.Location = new Point(22, 252);
+            button5.Location = new Point(22, 269);
             button5.Margin = new Padding(2);
             button5.Name = "button5";
-            button5.Size = new Size(100, 20);
+            button5.Size = new Size(130, 42);
             button5.TabIndex = 40;
             button5.Text = "Consultar ID";
             button5.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
             cb1.Location = new Point(126, 74);
             cb1.Margin = new Padding(2);
             cb1.Name = "cb1";
-            cb1.Size = new Size(152, 23);
+            cb1.Size = new Size(211, 23);
             cb1.TabIndex = 39;
             cb1.SelectedIndexChanged += cb1_SelectedIndexChanged;
             // 
@@ -113,10 +113,10 @@
             // 
             // button4
             // 
-            button4.Location = new Point(104, 210);
+            button4.Location = new Point(126, 210);
             button4.Margin = new Padding(2);
             button4.Name = "button4";
-            button4.Size = new Size(71, 38);
+            button4.Size = new Size(87, 38);
             button4.TabIndex = 36;
             button4.Text = "Borrar";
             button4.UseVisualStyleBackColor = true;
@@ -124,10 +124,10 @@
             // 
             // button3
             // 
-            button3.Location = new Point(179, 210);
+            button3.Location = new Point(226, 210);
             button3.Margin = new Padding(2);
             button3.Name = "button3";
-            button3.Size = new Size(88, 38);
+            button3.Size = new Size(99, 38);
             button3.TabIndex = 35;
             button3.Text = "Modificar";
             button3.UseVisualStyleBackColor = true;
@@ -135,10 +135,10 @@
             // 
             // button2
             // 
-            button2.Location = new Point(859, 355);
+            button2.Location = new Point(16, 328);
             button2.Margin = new Padding(2);
             button2.Name = "button2";
-            button2.Size = new Size(78, 37);
+            button2.Size = new Size(56, 24);
             button2.TabIndex = 34;
             button2.Text = "Volver";
             button2.UseVisualStyleBackColor = true;
@@ -149,7 +149,7 @@
             button1.Location = new Point(22, 210);
             button1.Margin = new Padding(2);
             button1.Name = "button1";
-            button1.Size = new Size(78, 38);
+            button1.Size = new Size(90, 38);
             button1.TabIndex = 33;
             button1.Text = "Agregar";
             button1.UseVisualStyleBackColor = true;
@@ -160,12 +160,12 @@
             dt1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dt1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dt1.Columns.AddRange(new DataGridViewColumn[] { id, ordenDeTrabajo, Insumo, cantidad });
-            dt1.Location = new Point(313, 11);
+            dt1.Location = new Point(367, 11);
             dt1.Margin = new Padding(2);
             dt1.Name = "dt1";
             dt1.RowHeadersWidth = 62;
             dt1.RowTemplate.Height = 33;
-            dt1.Size = new Size(624, 328);
+            dt1.Size = new Size(707, 328);
             dt1.TabIndex = 32;
             dt1.CellContentClick += dt1_CellContentClick;
             // 
@@ -204,7 +204,7 @@
             cb2.Location = new Point(90, 113);
             cb2.Margin = new Padding(2);
             cb2.Name = "cb2";
-            cb2.Size = new Size(152, 23);
+            cb2.Size = new Size(216, 23);
             cb2.TabIndex = 28;
             // 
             // label1
@@ -232,21 +232,25 @@
             // 
             // id
             // 
+            id.FillWeight = 15.87308F;
             id.HeaderText = "ID";
             id.Name = "id";
             // 
             // ordenDeTrabajo
             // 
+            ordenDeTrabajo.FillWeight = 50.0423F;
             ordenDeTrabajo.HeaderText = "Orden de Trabajo";
             ordenDeTrabajo.Name = "ordenDeTrabajo";
             // 
             // Insumo
             // 
+            Insumo.FillWeight = 25.0423012F;
             Insumo.HeaderText = "Insumo";
             Insumo.Name = "Insumo";
             // 
             // cantidad
             // 
+            cantidad.FillWeight = 15.0423012F;
             cantidad.HeaderText = "Cantidad";
             cantidad.Name = "cantidad";
             // 
@@ -254,7 +258,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(948, 416);
+            ClientSize = new Size(1102, 363);
             Controls.Add(label5);
             Controls.Add(button6);
             Controls.Add(button5);

@@ -37,16 +37,29 @@ namespace Presentation
 
                 foreach (var detalle in detalles)
                 {
-                    // Usa detalle.insumo.detalle para mostrar el nombre del insumo
-                    dt1.Rows.Add(detalle.id, detalle.ordenDeTrabajo.id,
-                                 detalle.insumo.detalle, detalle.cantidad);
+                    // Obtén los datos necesarios de la orden de trabajo
+                    var ordenDeTrabajo = detalle.ordenDeTrabajo;
+                    var fechaLote = ordenDeTrabajo.fechaLote.ToShortDateString();
+                    var centroDeCostoDescripcion = ordenDeTrabajo.centroDeCosto.descripcion;
+
+                    // Formatea la información de orden de trabajo
+                    string ordenTrabajoInfo = $"ID: {ordenDeTrabajo.id} | Fecha: {fechaLote} | Centro: {centroDeCostoDescripcion}";
+
+                    // Añade los datos al DataGridView
+                    dt1.Rows.Add(
+                        detalle.id,
+                        ordenTrabajoInfo,          // Columna para orden de trabajo con detalle
+                        detalle.insumo.detalle,     // Nombre del insumo
+                        detalle.cantidad            // Cantidad
+                    );
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error " + ex);
+                MessageBox.Show("Error " + ex.Message);
             }
         }
+
 
 
 
@@ -108,24 +121,35 @@ namespace Presentation
             {
                 try
                 {
+                    // Obtener el ID del detalle de orden de trabajo que se va a modificar
                     int id = Convert.ToInt32(tv1.Text);
-                    int ordenDeTrabajoId = Convert.ToInt32(cb1.Text);
-                    int insumoId = Convert.ToInt32(cb2.Text);
+
+                    // Obtener el ID de la Orden de Trabajo seleccionada usando `ObtenerIdOrdenTrabajoSeleccionada`
+                    int ordenDeTrabajoId = ObtenerIdOrdenTrabajoSeleccionada();
+                    if (ordenDeTrabajoId == -1)
+                    {
+                        MessageBox.Show("Por favor, selecciona una orden de trabajo válida.");
+                        return;
+                    }
+
+                    // Obtener el nombre del insumo desde el ComboBox
+                    string insumoNombre = cb2.Text;
                     decimal cantidad = Convert.ToDecimal(tv2.Text);
 
-                    // Obtener los objetos completos
+                    // Obtener los objetos completos (OrdenTrabajo e Insumo)
                     OrdenTrabajo ordenDeTrabajo = DDetalleOrdenTrabajo.GetOrdenTrabajoById(ordenDeTrabajoId);
-                    Insumo insumo = DDetalleOrdenTrabajo.GetInsumoById(insumoId);
+                    Insumo insumo = DDetalleOrdenTrabajo.GetInsumoByNombre(insumoNombre); // Usa el método para obtener insumo por nombre
 
                     // Actualizar el detalle de la orden de trabajo
                     DDetalleOrdenTrabajo.UpdateDetalleOrdenTrabajo(id, ordenDeTrabajo, insumo, cantidad);
 
-                    MessageBox.Show("Actualizado con exito");
-                    button6_Click(sender, e); // Es para refrescar los campos (llama al GetAll)
+                    MessageBox.Show("Actualizado con éxito");
+                    VaciarCampos();
+                    button6_Click(sender, e); // Refresca los campos llamando a `GetAll`
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("ERROR");
+                    MessageBox.Show("ERROR: " + ex.Message);
                 }
             }
             else
@@ -133,6 +157,9 @@ namespace Presentation
                 MessageBox.Show("Por favor, complete todos los campos antes de actualizar.");
             }
         }
+
+
+
 
 
         private void cb1_SelectedIndexChanged(object sender, EventArgs e)
@@ -193,13 +220,21 @@ namespace Presentation
             {
                 try
                 {
-                    int ordenDeTrabajoId = Convert.ToInt32(cb1.Text);
-                    string insumoNombre = cb2.Text; // Obtener el nombre del insumo desde el ComboBox
+                    // Obtener el ID de la Orden de Trabajo seleccionada usando el método `ObtenerIdOrdenTrabajoSeleccionada`
+                    int ordenDeTrabajoId = ObtenerIdOrdenTrabajoSeleccionada();
+                    if (ordenDeTrabajoId == -1)
+                    {
+                        MessageBox.Show("Por favor, selecciona una orden de trabajo.");
+                        return;
+                    }
+
+                    // Obtener el nombre del insumo desde el ComboBox
+                    string insumoNombre = cb2.Text;
                     decimal cantidad = Convert.ToDecimal(tv2.Text);
 
                     // Obtener los objetos completos (OrdenTrabajo e Insumo)
                     OrdenTrabajo ordenDeTrabajo = DDetalleOrdenTrabajo.GetOrdenTrabajoById(ordenDeTrabajoId);
-                    Insumo insumo = DDetalleOrdenTrabajo.GetInsumoByNombre(insumoNombre); // Nuevo método para obtener insumo por nombre
+                    Insumo insumo = DDetalleOrdenTrabajo.GetInsumoByNombre(insumoNombre); // Usa un método para obtener insumo por nombre
 
                     // Insertar el detalle de la orden de trabajo
                     DDetalleOrdenTrabajo.InsertDetalleOrdenTrabajo(ordenDeTrabajo, insumo, cantidad);
@@ -211,7 +246,9 @@ namespace Presentation
                 {
                     MessageBox.Show("Error Grave: " + ex.Message);
                 }
-                button6_Click(sender, e); // Es para refrescar los campos (llama al GetAll)
+
+                // Refresca los campos llamando al método `GetAll`
+                button6_Click(sender, e);
             }
             else
             {
@@ -220,15 +257,38 @@ namespace Presentation
         }
 
 
+
         public void LoaderComboOrdenTrabajo()
         {
-            var ordenIds = DDetalleOrdenTrabajo.GetAllOrdenTrabajoIds();
+            var ordenesTrabajo = DDetalleOrdenTrabajo.GetAllOrdenesTrabajo();
             cb1.Items.Clear();
-            foreach (var id in ordenIds)
+
+            // Recorre la lista de órdenes de trabajo y añade cada una al ComboBox
+            foreach (var orden in ordenesTrabajo)
             {
-                cb1.Items.Add(id);
+                // Formato deseado: "ID: 1 | (FechaLote) | (Descripción de centroCosto)"
+                string displayText = $"ID: {orden.id} | {orden.fechaLote.ToShortDateString()} | {orden.centroDeCosto.descripcion}";
+
+                // Añade el KeyValuePair al ComboBox
+                cb1.Items.Add(new KeyValuePair<int, string>(orden.id, displayText));
             }
+
+            // Configura el ComboBox para mostrar el texto del Value y utilizar el Key como valor
+            cb1.DisplayMember = "Value";
+            cb1.ValueMember = "Key";
         }
+
+        // Método para obtener el ID seleccionado
+        public int ObtenerIdOrdenTrabajoSeleccionada()
+        {
+            if (cb1.SelectedItem is KeyValuePair<int, string> selectedPair)
+            {
+                return selectedPair.Key; // Retorna el ID seleccionado
+            }
+            return -1; // Retorna -1 si no hay selección
+        }
+
+
 
         private void button4_Click(object sender, EventArgs e)
         {
