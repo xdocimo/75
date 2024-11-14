@@ -1,4 +1,4 @@
-﻿using Datos;
+using Datos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -149,6 +149,9 @@ namespace Presentation
                     MessageBox.Show("ERROR");
                 }
             }
+                {
+                    MessageBox.Show("Por favor, complete todos los campos antes de actualizar.");
+                }
             }
         }
 
@@ -214,14 +217,26 @@ namespace Presentation
             }
         }
 
-            private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(tv1.Text);
-            DDetalleOrdenTrabajo.DeleteDetalleOrdenTrabajo(id);
-            button6_Click(sender, e); // Es para refrescar los campos (llama al GetAll)
-            MessageBox.Show("Borrado con exito");
-            VaciarCampos();
+            if (string.IsNullOrWhiteSpace(tv1.Text))
+            {
+                MessageBox.Show("Por favor, ingrese un ID para eliminar.");
+                return;
+            }
 
+            try
+            {
+                int id = Convert.ToInt32(tv1.Text);
+                DDetalleOrdenTrabajo.DeleteDetalleOrdenTrabajo(id);
+                button6_Click(sender, e); // Refresca los campos (llama a GetAll)
+                MessageBox.Show("Borrado con éxito");
+                VaciarCampos();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("El ID debe ser un número válido.");
+            }
         }
     }
 }
